@@ -36,7 +36,11 @@ public class Movimiento : MonoBehaviour
     bool transition_speed_down = false;
     bool brake = false;
 
+    bool jump = false;
+    int jump_cont = 0;
+
     private Rigidbody2D rb;
+    private SpriteRenderer spr;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,7 @@ public class Movimiento : MonoBehaviour
         previous_hor = Input.GetAxis("Horizontal");
 
         rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -54,10 +59,6 @@ public class Movimiento : MonoBehaviour
     {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-
-        if (Input.GetButtonDown("Jump")){
-            rb.AddForce(Vector2.up * jump_force, ForceMode2D.Impulse);
-        }
 
         if (Input.GetButtonDown("Run")){
             transition_speed_down = false;
@@ -101,8 +102,36 @@ public class Movimiento : MonoBehaviour
             }
         }
 
-        transform.Translate(speed * horizontal * Time.deltaTime, 0, 0, Space.World);
+        if (Input.GetButtonDown("Jump") && jump_cont < 1){
+            jump = true;
+            jump_cont++;
+        }
+        if (Input.GetButtonUp("Jump")){
+            jump = false;
+        }
+
+        if (rb.velocity.y == 0){
+            jump_cont = 0;
+        }
+
+        if (horizontal > 0){
+            spr.flipX=false;
+        }
+        else if (horizontal < 0){
+            spr.flipX=true;
+        }
 
         previous_hor = horizontal;
+    }
+
+    void FixedUpdate(){
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+
+        transform.Translate(speed * horizontal * 0.025f, 0, 0, Space.World);
+        if (jump) {
+            rb.AddForce(Vector2.up * jump_force, ForceMode2D.Impulse);
+            jump = false;
+        }
     }
 }
