@@ -106,7 +106,7 @@ public class Movimiento : MonoBehaviour
             jump = true;
             jump_cont++;
         }
-        if (Input.GetButtonUp("Jump")){
+        if (Input.GetButtonUp("Jump") && rb.velocity.y < 0){
             jump = false;
         }
 
@@ -129,7 +129,7 @@ public class Movimiento : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
 
         transform.Translate(speed * horizontal * 0.025f, 0, 0, Space.World);
-        if (jump) {
+        if (jump && rb.velocity.y <= 0) {
             rb.AddForce(Vector2.up * jump_force, ForceMode2D.Impulse);
             jump = false;
         }
