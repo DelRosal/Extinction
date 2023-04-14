@@ -81,7 +81,7 @@ public class Camera : MonoBehaviour
 
         Vector3 smoothPos = Vector3.Lerp(newCameraPos, targetPos, 1);
 
-        smoothPos.x = Mathf.Clamp(smoothPos.x, limitsX[0].position.x, limitsX[1].position.x);
+        smoothPos.x = Mathf.Clamp(smoothPos.x, limitsX[0].position.x + Mathf.Abs(stgDimensionsN.x - transform.position.x), limitsX[1].position.x - Mathf.Abs(stgDimensionsP.x - transform.position.x));
 
         transform.position = smoothPos;
     }
