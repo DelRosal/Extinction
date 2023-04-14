@@ -14,17 +14,22 @@ public class Camera : MonoBehaviour
     [SerializeField]
     private float xSmoothTime;
     private float xTargetPos;
-    private float offsetX;
+    private float xOffset;
     [SerializeField]
     private float counterSpeed;
     private float counter;
     [SerializeField]
-    private float playerLimitY = 3f;
+    private float playerPLimitY = 2f;
+    [SerializeField]
+    private float playerNLimitY = 2f;
 
     [SerializeField]
     private Vector3 stgDimensionsP;
     [SerializeField]
     private Vector3 stgDimensionsN;
+
+    [SerializeField]
+    private Transform[] limitsX;
 
     private void Start()
     {
@@ -43,12 +48,21 @@ public class Camera : MonoBehaviour
         Vector3 targetPos = target.position;
         targetPos.z = transform.position.z;
 
-        if (target.position.y > stgDimensionsN.y + playerLimitY)
+        if (targetPos.y >= stgDimensionsN.y + playerPLimitY && targetPos.y <= stgDimensionsP.y - playerNLimitY)
         {
             targetPos.y = transform.position.y;
         }
         else
-            targetPos.y += playerLimitY + 1;
+        {
+            if (targetPos.y < stgDimensionsN.y + playerPLimitY)
+            {
+                targetPos.y += (transform.position.y - stgDimensionsN.y) - playerPLimitY;
+            }
+            else if (targetPos.y > stgDimensionsP.y - playerNLimitY)
+            {
+                targetPos.y += (transform.position.y - stgDimensionsP.y) + playerNLimitY;
+            }
+        }
 
         if (horizontal > 0)
         {
@@ -62,10 +76,13 @@ public class Camera : MonoBehaviour
         if (counter > 1) counter = 1;
         else if (counter < 0) counter = 0;
 
-        offsetX = Mathf.Lerp(-playerLimitX, playerLimitX, counter);
-        targetPos.x += offsetX;
+        xOffset = Mathf.Lerp(-playerLimitX, playerLimitX, counter);
+        targetPos.x += xOffset;
 
         Vector3 smoothPos = Vector3.Lerp(newCameraPos, targetPos, 1);
+
+        smoothPos.x = Mathf.Clamp(smoothPos.x, limitsX[0].position.x, limitsX[1].position.x);
+
         transform.position = smoothPos;
     }
 }
