@@ -12,33 +12,35 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     Vector2 movement;
 
-
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
 
     // Update is called once per frame
     void Update()
     {
        movement.x = Input.GetAxisRaw("Horizontal");
        movement.y = Input.GetAxisRaw("Vertical");
+       rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+       Flip();
 
-        
-    }
-
-    private void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
-        Flip();
+        if (movement.magnitude > 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
     //We create a function to flip our player depending on the direction he is moving
     private void Flip()
     {
-        if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
+        if (movement.x < 0 ){
+            spriteRenderer.flipX = true;
+        } else spriteRenderer.flipX = false;
     }
 }
 
