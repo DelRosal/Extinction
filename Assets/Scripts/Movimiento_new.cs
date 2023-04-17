@@ -11,7 +11,7 @@ public class Movimiento_new : MonoBehaviour {
     
     public float groundDrag = 1f;
 
-    public float limitVelToDriftOnGroundTouch = 4f;
+    private float limitVelToDriftOnGroundTouch = 4f;
 
     private float jumpCount = 0;
 
@@ -55,9 +55,15 @@ public class Movimiento_new : MonoBehaviour {
         Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
         inputVector.Normalize();
 
-        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y <= 4 && !hasDoubleJumped) {
-            Jump();
-            jumpCount++;
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (inputVector.x != 0) {
+                if (movVel.x/Mathf.Abs(movVel.x) != inputVector.x) movVel.x = 0;
+            }
+
+            if (rb.velocity.y <= 4 && !hasDoubleJumped) {
+                Jump();
+                jumpCount++;
+            }
         }
 
         if (jumpCount > 0) hasDoubleJumped = true;
@@ -109,11 +115,12 @@ public class Movimiento_new : MonoBehaviour {
             if (foundWallOnRight && inputVector.x == 1) movVel.x = 0; 
         }
 
-        float maxVelFromSky = limitVelToDriftOnGroundTouch;
-        if (Mathf.Abs(movVel) > maxVelFromSky && wasOnSky) movVel.x = 0;
+        float maxVelFromSky = limitVelToDriftOnGroundTouch / 40;
+        if (Mathf.Abs(movVel.x) < maxVelFromSky && wasOnSky && isGrounded) movVel.x = 0;
     }
 
     void FixedUpdate() {
+        Debug.Log(movVel.x * 40);
         transform.Translate(movVel.x, 0, 0, Space.World);
     }
 
