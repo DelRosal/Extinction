@@ -7,11 +7,16 @@ public class Movimiento_new : MonoBehaviour {
     public float walkAccel = 3f;
     public float sprintMaxVel = 5f;
     public float sprintAccel = 3f;
-    public float jumpForce = 14f;
+    public float jumpForce = 15f;
+    public float jumpMultiplierVel = 4.5f;
+    public float runJumpMultiplier = 1.2f;
     
     public float groundDrag = 1f;
 
-    private float limitVelToDriftOnGroundTouch = 4f;
+    private float limitVelToDriftOnGroundTouch = 2.8f;
+    private float jumpTime = 0f;
+    private float maxJumpTime = 1.5f;
+    private float varJumpMultiplier = 1f;
 
     private float jumpCount = 0;
 
@@ -19,6 +24,7 @@ public class Movimiento_new : MonoBehaviour {
     private Vector2 movVel;
 
     private Rigidbody2D rb;
+    private SpriteRenderer spr;
 
     private Vector2 lastInputVector;
 
@@ -30,16 +36,17 @@ public class Movimiento_new : MonoBehaviour {
     private bool foundWallOnRight = false;
     private bool hasDoubleJumped = false;
     private bool wasOnSky = false;
+    private bool isJumping = false;
 
-    void Jump(){
-        Vector2 vel = rb.velocity;
-        vel.y = 0;
-        rb.velocity = vel;
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    void Jump() {
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.up * jumpForce * varJumpMultiplier, ForceMode2D.Impulse);
     }
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
+
         movAccel.x = walkAccel;
 
         lastInputVector = new Vector2(0f, 0f);
@@ -55,14 +62,26 @@ public class Movimiento_new : MonoBehaviour {
         Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
         inputVector.Normalize();
 
+        if (movVel.x * (movVel.x/Mathf.Abs(movVel.x)) >= jumpMultiplierVel / 40) varJumpMultiplier = runJumpMultiplier;
+        else varJumpMultiplier = 1f;
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (inputVector.x != 0) {
                 if (movVel.x/Mathf.Abs(movVel.x) != inputVector.x) movVel.x = 0;
             }
 
-            if (rb.velocity.y <= 4 && !hasDoubleJumped) {
+            if (!hasDoubleJumped) {
+                isJumping = true;
+                jumpTime = 0f;
                 Jump();
                 jumpCount++;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping) {
+            if (jumpTime < maxJumpTime) {
+                jumpTime += Time.deltaTime;
+                rb.AddForce(Vector2.up * jumpForce * varJumpMultiplier * Time.deltaTime, ForceMode2D.Impulse);
             }
         }
 
@@ -71,6 +90,7 @@ public class Movimiento_new : MonoBehaviour {
         if (isGrounded) {
             hasDoubleJumped = false;
             jumpCount = 0;
+            jumpTime = 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
@@ -117,10 +137,16 @@ public class Movimiento_new : MonoBehaviour {
 
         float maxVelFromSky = limitVelToDriftOnGroundTouch / 40;
         if (Mathf.Abs(movVel.x) < maxVelFromSky && wasOnSky && isGrounded) movVel.x = 0;
+
+        // Renderizado
+
+        if (isGrounded || (!isGrounded && (movVel.x * (movVel.x/Mathf.Abs(movVel.x))) * 40 < 2)){
+            if (inputVector.x > 0) spr.flipX=false;
+            else if (inputVector.x < 0) spr.flipX=true;
+        }
     }
 
     void FixedUpdate() {
-        Debug.Log(movVel.x * 40);
         transform.Translate(movVel.x, 0, 0, Space.World);
     }
 
