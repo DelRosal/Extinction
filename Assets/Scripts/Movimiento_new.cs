@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movimiento_new : MonoBehaviour {
-    public float walkMaxVel = 5f;
-    public float walkAccel = 1f;
-    public float sprintMaxVel = 8f;
-    public float sprintAccel = 8f;
-    public float jumpForce = 6f;
+    public float walkMaxVel = 3f;
+    public float walkAccel = 3f;
+    public float sprintMaxVel = 5f;
+    public float sprintAccel = 3f;
+    public float jumpForce = 14f;
     
     public float groundDrag = 1f;
+
+    public float limitVelToDriftOnGroundTouch = 4f;
+
+    private float jumpCount = 0;
 
     private Vector2 movAccel;
     private Vector2 movVel;
@@ -24,6 +28,15 @@ public class Movimiento_new : MonoBehaviour {
     private bool facedAWall = false;
     private bool foundWallOnLeft = false;
     private bool foundWallOnRight = false;
+    private bool hasDoubleJumped = false;
+    private bool wasOnSky = false;
+
+    void Jump(){
+        Vector2 vel = rb.velocity;
+        vel.y = 0;
+        rb.velocity = vel;
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -42,11 +55,16 @@ public class Movimiento_new : MonoBehaviour {
         Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
         inputVector.Normalize();
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
-            Vector2 vel = rb.velocity;
-            vel.y = 0;
-            rb.velocity = vel;
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y <= 4 && !hasDoubleJumped) {
+            Jump();
+            jumpCount++;
+        }
+
+        if (jumpCount > 0) hasDoubleJumped = true;
+
+        if (isGrounded) {
+            hasDoubleJumped = false;
+            jumpCount = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
@@ -90,6 +108,9 @@ public class Movimiento_new : MonoBehaviour {
             if (foundWallOnLeft && inputVector.x == -1) movVel.x = 0; 
             if (foundWallOnRight && inputVector.x == 1) movVel.x = 0; 
         }
+
+        float maxVelFromSky = limitVelToDriftOnGroundTouch;
+        if (Mathf.Abs(movVel) > maxVelFromSky && wasOnSky) movVel.x = 0;
     }
 
     void FixedUpdate() {
@@ -101,6 +122,8 @@ public class Movimiento_new : MonoBehaviour {
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         lastInputVector = new Vector2(horizontalInput, verticalInput);
+        if (!isGrounded) wasOnSky = true;
+        else wasOnSky = false;
     }
 
     void OnCollisionStay2D(Collision2D collision){
