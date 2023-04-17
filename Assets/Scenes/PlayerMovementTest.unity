@@ -528,7 +528,9 @@ MonoBehaviour:
   walkAccel: 3
   sprintMaxVel: 5
   sprintAccel: 3
-  jumpForce: 14
+  jumpForce: 15
+  jumpMultiplierVel: 4.5
+  runJumpMultiplier: 1.2
   groundDrag: 1
 --- !u!1 &2068830057
 GameObject:
