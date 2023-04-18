@@ -18,4 +18,19 @@ public class GUI_Button : MonoBehaviour
         
 
     }
+
+    public void ListenButtonQuit()
+    {
+        SceneManager.LoadScene("Start-Play");
+    }
+
+    public void ListenButtonResume()
+    {
+        SceneManager.LoadScene("Map");
+    }
+
+    public void ListenButtonPause()
+    {
+        SceneManager.LoadScene("Pause Scene");
+    }
 }
