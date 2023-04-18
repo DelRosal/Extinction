@@ -8023,7 +8023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 932134645401422358, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 932134645401422358, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8259,7 +8259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 932134644140269842, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 932134645296502995, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: m_LocalScale.x
@@ -8331,7 +8331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2193150758566357946, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2252409619955189887, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: m_Layer
@@ -8355,7 +8355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4156190715648788153, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4874588915542892998, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: m_Layer
@@ -8367,23 +8367,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6517564732495828592, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6739875019791873715, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7953669980863196968, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8412328209682044924, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9022068184227877391, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
       propertyPath: _speed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}

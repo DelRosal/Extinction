@@ -29,7 +29,7 @@ public class EnemyAttack : MonoBehaviour
             fireballs[i].GetComponent<proyectil>().Direction(Mathf.Sign(transform.localScale.x));
             if(i==9){i=0;}
             else{i++;}
-            yield return new WaitForSeconds (2.5f);
+            yield return new WaitForSeconds (3.0f);
         }
         
     }
