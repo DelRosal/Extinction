@@ -42,5 +42,13 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = true;
         } else spriteRenderer.flipX = false;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Collectible"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
 
