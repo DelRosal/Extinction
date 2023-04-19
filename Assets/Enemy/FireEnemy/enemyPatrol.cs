@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class enemyPatrol : MonoBehaviour
 {
@@ -17,6 +19,20 @@ public class enemyPatrol : MonoBehaviour
     [SerializeField] private float _speed;
     private Vector3 initScale;
     private bool movingLeft;
+
+    //Collision with enemy sound
+    [SerializeField] private AudioSource collisonSound;
+    // We write a function for the character to collect items
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collisonSound.Play();
+            
+        }
+
+    }
+
 
     void Awake()
     {

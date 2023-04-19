@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GUI_Button : MonoBehaviour
 {
-    
+
 
     public void ListenButton()
     {
@@ -21,6 +21,7 @@ public class GUI_Button : MonoBehaviour
 
     public void ListenButtonQuit()
     {
+
         SceneManager.LoadScene("Start-Play");
     }
 
@@ -31,6 +32,9 @@ public class GUI_Button : MonoBehaviour
 
     public void ListenButtonPause()
     {
+
         SceneManager.LoadScene("Pause Scene");
     }
+
+   
 }

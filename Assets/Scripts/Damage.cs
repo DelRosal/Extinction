@@ -7,18 +7,20 @@ public class Damage : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Enemy"))
         {
+            Debug.Log("Damage");
             anim.SetTrigger("Damage");
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("Damage");
             anim.SetTrigger("Damage");
         }
     }

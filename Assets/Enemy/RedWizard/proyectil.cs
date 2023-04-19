@@ -6,19 +6,33 @@ public class proyectil : MonoBehaviour
 {
     [SerializeField]
     private float _speed;
+    [SerializeField]
+    private float _lifetime = 2;
 
     private bool _hit;
     private float _direction;
     private BoxCollider2D boxCollider;
     private Animator animator;
 
+    // Audio source to the collision
+    [SerializeField] private AudioSource collisonSound;
+
     // Start is called before the first frame update
     void Awake()
     {
         animator= GetComponent<Animator>();
         boxCollider= GetComponent<BoxCollider2D>();
+    }
 
-        
+    void Start(){
+        StartCoroutine(DestroyProyectile());
+    }
+
+    IEnumerator DestroyProyectile(){
+        yield return new WaitForSeconds(_lifetime);
+        _hit=true;
+        boxCollider.enabled=false;
+        animator.SetTrigger("explode");
     }
 
     // Update is called once per frame
@@ -31,9 +45,12 @@ public class proyectil : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag("Player") || collision.CompareTag("Ground")){
         _hit=true;
         boxCollider.enabled=false;
         animator.SetTrigger("explode");
+        if (!collision.CompareTag("Ground")) collisonSound.Play();
+        }
     }
 
     public void Direction(float dir){

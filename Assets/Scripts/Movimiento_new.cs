@@ -41,10 +41,13 @@ public class Movimiento_new : MonoBehaviour
     private bool wasOnSky = false;
     private bool isJumping = false;
 
+    //Audio Source jumping
+    [SerializeField] private AudioSource jumpingSound;
     void Jump()
     {
         rb.velocity = Vector2.zero;
         rb.AddForce(Vector2.up * jumpForce * varJumpMultiplier, ForceMode2D.Impulse);
+        jumpingSound.Play();
     }
 
     void Start()

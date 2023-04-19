@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private Transform startingPoint;
-    [SerializeField] private GameObject [] fireballs;
+    [SerializeField] private GameObject fireballs;
 
     private Animator animator;
     private float timer=Mathf.Infinity;
@@ -25,8 +25,8 @@ public class EnemyAttack : MonoBehaviour
         {
             
             animator.SetTrigger("attack");
-            fireballs[i].transform.position=startingPoint.position;
-            fireballs[i].GetComponent<proyectil>().Direction(Mathf.Sign(transform.localScale.x));
+            GameObject actualFireball = Instantiate(fireballs, startingPoint.position, Quaternion.identity);
+            actualFireball.GetComponent<proyectil>().Direction(Mathf.Sign(-transform.localScale.x));
             if(i==9){i=0;}
             else{i++;}
             yield return new WaitForSeconds (3.0f);
