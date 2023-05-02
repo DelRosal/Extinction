@@ -24,14 +24,14 @@ public class Movimiento_new : MonoBehaviour
     private float jumpCount = 0;
 
     private Vector2 movAccel;
-    private Vector2 movVel;
+    public Vector2 movVel;
 
     private Rigidbody2D rb;
     private SpriteRenderer spr;
 
     private Vector2 lastInputVector;
 
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     private bool isSprinting = false;
     private bool wasSprinting = false;
     private bool facedAWall = false;

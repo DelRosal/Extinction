@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - Collectible
   - Ground7fc0dd0bf4a6b450ecf9ecaf044495cee914d4a1
+  - Ground
+  - Patrol Enemy
   layers:
   - Default
   - TransparentFX
