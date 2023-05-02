@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinalEgg : MonoBehaviour
 {
+    [SerializeField]
     private Animator anim;
+    [SerializeField]
+    private GameObject transitionImage;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        anim = gameObject.GetComponent<Animator>();
+        Debug.Log("Collision");
+        if (!other.CompareTag("Player") || !transitionImage) return;
+        anim.SetBool("Broke", true);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void StartTrasition()
     {
-        if (!other.CompareTag("Player")) return;
+        transitionImage.SetActive(true);
+        transitionImage.GetComponent<Animator>().SetBool("Play", true);
     }
 }
