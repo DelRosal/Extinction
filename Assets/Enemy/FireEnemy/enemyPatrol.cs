@@ -6,16 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class enemyPatrol : MonoBehaviour
 {
-    [Header ("Patrol")]
+    [SerializeField]
+    private Animator anim;
+    [SerializeField]
+    private int health = 3;
+    [Header("Patrol")]
     [SerializeField]
     private Transform _right;
-    [SerializeField] 
+    [SerializeField]
     private Transform _left;
 
-    [Header ("FireEnemy")]
+    private bool recieveDamage;
+    [SerializeField]
+    private float damageAnimationTime = 1f;
+
+    [Header("FireEnemy")]
     [SerializeField] private Transform _enemy;
 
-    [Header ("Movement Parameters")]
+    [Header("Movement Parameters")]
     [SerializeField] private float _speed;
     private Vector3 initScale;
     private bool movingLeft;
@@ -28,7 +36,7 @@ public class enemyPatrol : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collisonSound.Play();
-            
+
         }
 
     }
@@ -36,52 +44,72 @@ public class enemyPatrol : MonoBehaviour
 
     void Awake()
     {
-        initScale= _enemy.localScale;
+        initScale = _enemy.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(movingLeft)
+        if (health <= 0)
         {
-            if(_enemy.position.x>= _left.position.x)
+            anim.SetTrigger("die");
+            Destroy(gameObject, 1);
+        }
+
+        if (recieveDamage) return;
+        if (movingLeft)
+        {
+            if (_enemy.position.x >= _left.position.x)
             {
                 DirectionMovement(-1);
             }
-            else 
+            else
             {
                 DirectionChange();
             }
-            
+
         }
         else
         {
-            if(_enemy.position.x<= _right.position.x)
+            if (_enemy.position.x <= _right.position.x)
             {
                 DirectionMovement(1);
             }
-            else 
+            else
             {
                 DirectionChange();
             }
         }
-        
+
     }
 
     private void DirectionChange()
     {
-        movingLeft= !movingLeft;
+        movingLeft = !movingLeft;
     }
 
-    private void DirectionMovement(int _direction){
+    private void DirectionMovement(int _direction)
+    {
 
-        _enemy.localScale= new Vector3 (Mathf.Abs(initScale.x) * _direction, initScale.y, initScale.z);
+        _enemy.localScale = new Vector3(Mathf.Abs(initScale.x) * _direction, initScale.y, initScale.z);
 
-        _enemy.position= new Vector3(_enemy.position.x + Time.deltaTime * _direction * _speed,
+        _enemy.position = new Vector3(_enemy.position.x + Time.deltaTime * _direction * _speed,
                                     _enemy.position.y,
                                     _enemy.position.z);
 
     }
 
+    public void TakeDamage()
+    {
+        anim.SetTrigger("Damaged");
+        health -= 1;
+        recieveDamage = true;
+        StartCoroutine(RecieveDamage());
+    }
 
+    IEnumerator RecieveDamage()
+    {
+        yield return new WaitForSeconds(damageAnimationTime);
+        recieveDamage = false;
+    }
 }
