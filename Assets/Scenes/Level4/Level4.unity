@@ -2798,6 +2798,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyShoot
       objectReference: {fileID: 0}
+    - target: {fileID: 8174562428280620257, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174562428280620257, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
 --- !u!4 &664506147 stripped
@@ -2937,6 +2945,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3522047937032266739, guid: 7ea612efcca675648abf5c51f7527b01, type: 3}
+      propertyPath: attackSize
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 8663245774869025036, guid: 7ea612efcca675648abf5c51f7527b01, type: 3}
       propertyPath: m_Controller
       value: 
