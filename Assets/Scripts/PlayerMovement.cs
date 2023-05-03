@@ -50,5 +50,17 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+
+   // We create a function to lock the player movement until the animation of hatching is done
+    public void LockMovement()
+    {
+        speed = 0f;
+    }
+
+    // We create a function to unlock the player movement after the animation of hatching is done
+    public void UnlockMovement()
+    {
+        speed = 200f;
+    }
 }
 
