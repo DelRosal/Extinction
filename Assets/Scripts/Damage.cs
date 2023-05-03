@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Damage : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class Damage : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         movimiento = GetComponent<Movimiento_new>();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet")){
@@ -41,7 +41,11 @@ public class Damage : MonoBehaviour
         else if (collision.CompareTag("Enemy")){
             Debug.Log("Damage");
             anim.SetTrigger("Damage");
-        }
+            collisonSound.Play();
+            //We call the function to take damage
+            TakeDamage(10);
+            
+        } 
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -50,6 +54,13 @@ public class Damage : MonoBehaviour
         {
             Debug.Log("Damage");
             anim.SetTrigger("Damage");
+            collisonSound.Play();
+            //We call the function to take damage
+            TakeDamage(10);
         }
+
+        
     }
+
+    
 }

@@ -79,6 +79,9 @@ public class Movimiento_new : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //We start the jumping animation
+            anim.SetBool("IsJumping", true);
+            
             if (inputVector.x != 0)
             {
                 if (movVel.x / Mathf.Abs(movVel.x) != inputVector.x) movVel.x = 0;
@@ -91,6 +94,11 @@ public class Movimiento_new : MonoBehaviour
                 Jump();
                 jumpCount++;
             }
+        }
+        else if(Input.GetKeyUp(KeyCode.Space))
+        {
+            // Else we stop the jumping animation
+            anim.SetBool("IsJumping", false);
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping)
