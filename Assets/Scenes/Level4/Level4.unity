@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3834,6 +3834,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyShoot
       objectReference: {fileID: 0}
+    - target: {fileID: 8174562428280620257, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174562428280620257, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142fc8d2d74a77b4e9d1ec03140bcd13, type: 3}
 --- !u!4 &664506147 stripped
@@ -4073,7 +4081,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838223521909676162, guid: 0c8d1753b1b778e41838006ea4b078a2, type: 3}
+    - target: {fileID: 1838223521909676162, guid: 0c8d1753b1b778e41838006ea4b078a2, type: 3
       propertyPath: collisonSound
       value: 
       objectReference: {fileID: 402442774}
@@ -10242,7 +10250,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}\
   m_GameObject: {fileID: 1534569147}
   m_Enabled: 1
   m_EditorHideFlags: 0
