@@ -20,18 +20,7 @@ public class enemyPatrol : MonoBehaviour
     private Vector3 initScale;
     private bool movingLeft;
 
-    //Collision with enemy sound
-    [SerializeField] private AudioSource collisonSound;
-    // We write a function for the character to collect items
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            collisonSound.Play();
-            
-        }
-
-    }
+    
 
 
     void Awake()
